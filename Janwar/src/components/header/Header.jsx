@@ -132,7 +132,7 @@ const Header = () => {
             >
               <i className="bi bi-list"></i>
             </button>
-            <SiteBrandWrapper to="/" className="inline-flex">
+            <SiteBrandWrapper to="/home" className="inline-flex">
               <div className="brand-img-wrap flex items-center justify-center">
                 <img
                   className="site-brand-img"

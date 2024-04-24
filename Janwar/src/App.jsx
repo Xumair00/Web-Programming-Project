@@ -9,13 +9,13 @@ import AuthLayout from './components/layout/AuthLayout.jsx';
 import { GlobalStyles } from './styles/global/GlobalStyles.js';
 
 // Auth pages
-import SignIn from './pages/auth/SignInScreen';
-import SignUp from './pages/auth/SignUpScreen';
-import Reset from './pages/auth/ResetScreen';
-import ChangePassword from './pages/auth/ChangePasswordScreen';
-import CheckMail from './pages/auth/CheckMailScreen';
-import Verification from './pages/auth/VerificationScreen';
-import NotFound from './pages/error/NotFoundScreen';
+import SignIn from './screens/auth/SignInScreen.jsx';
+import SignUp from './screens/auth/SignUpScreen.jsx';
+import Reset from './screens/auth/ResetScreen.jsx';
+import ChangePassword from './screens/auth/ChangePasswordScreen.jsx';
+import CheckMail from './screens/auth/CheckMailScreen.jsx';
+import Verification from './screens/auth/VerificationScreen.jsx';
+import NotFound from './screens/error/NotFoundScreen.jsx';
 import BuyPet from "./screens/product/BuyPet.jsx";
 import AdoptPet from "./screens/product/AdoptPet.jsx";
 import Accessories from "./screens/product/Accessories.jsx";
@@ -23,6 +23,14 @@ import ProductDetailsAccessories from "./screens/product/ProductDetailsAccessori
 import ProductDetailsBuy from "./screens/product/ProductDetailsBuy.jsx";
 import ProductDetailsAdopt from "./screens/product/ProductDetailsAdopt.jsx";
 import Cart from "./screens/cart/CartScreen";
+import Checkout from "./screens/checkout/CheckoutScreen";
+import Order from "./screens/user/OrderListScreen";
+import OrderDetail from "./screens/user/OrderDetailScreen";
+import WishList from "./screens/user/WishListScreen";
+import WishListEmpty from "./screens/user/WishListEmptyScreen";
+import Confirm from "./screens/user/ConfirmScreen";
+import Account from "./screens/user/AccountScreen";
+import Address from "./screens/user/AddressScreen";
 
 
 
@@ -44,6 +52,14 @@ function App() {
             <Route path="/product/buy/details" element={<ProductDetailsBuy />} />
             <Route path="/product/adopt/details" element={<ProductDetailsAdopt />} />
             <Route path="/cart" element={<Cart />} />
+            <Route path="/checkout" element={<Checkout />} />
+            <Route path="/order" element={<Order />} />
+            <Route path="/order_detail" element={<OrderDetail />} />
+            <Route path="/wishlist" element={<WishList />} />
+            <Route path="/empty_wishlist" element={<WishListEmpty />} />
+            <Route path="/confirm" element={<Confirm />} />
+            <Route path="/account" element={<Account />} />
+            <Route path="/account/add" element={<Address />} />
 
             </Route>
 

@@ -99,9 +99,9 @@ import shipping_icon from "../assets/icons/shipping_icon.svg";
 import return_icon from "../assets/icons/return_icon.svg";
 
 // cart images
-import cart1 from "../assets/images/cart1.png";
-import cart2 from "../assets/images/cart2.png";
-import cart3 from "../assets/images/cart3.png";
+import cart1 from "../assets/images/cart1.jpg";
+import cart2 from "../assets/images/cart2.jpg";
+import cart3 from "../assets/images/cart3.jpg";
 import play_icon from "../assets/icons/play_icon.svg";
 
 // error
@@ -113,10 +113,10 @@ import order1 from "../assets/images/order1.png";
 import order2 from "../assets/images/order2.png";
 
 // wishlist
-import wishitem1 from "../assets/images/wishitem1.png";
-import wishitem2 from "../assets/images/wishitem2.png";
-import wishitem3 from "../assets/images/wishitem3.png";
-import wishitem4 from "../assets/images/wishitem4.png";
+import wishitem1 from "../assets/images/wishitem1.jpg";
+import wishitem2 from "../assets/images/wishitem2.jpg";
+import wishitem3 from "../assets/images/wishitem3.jpg";
+import wishitem4 from "../assets/images/wishitem4.jpg";
 import green_heart from "../assets/icons/green_heart.svg";
 
 // card
