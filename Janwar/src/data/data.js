@@ -662,7 +662,7 @@ const orderData = [
     items: [
       {
         id: "product_01",
-        name: "Printed white coat",
+        name: "German Shepard",
         color: "White",
         quantity: 1,
         price: 23,
@@ -670,16 +670,16 @@ const orderData = [
       },
       {
         id: "product_02",
-        name: "Stretchy jumper for women",
-        color: "Maroon",
+        name: "Sunconure",
+        color: "Golden",
         quantity: 5,
         price: 21,
         imgSource: staticImages.cart2,
       },
       {
         id: "product_03",
-        name: "Black Color Hoodie",
-        color: "Black",
+        name: "Persian cat",
+        color: "White",
         quantity: 10,
         price: 90,
         imgSource: staticImages.cart3,
@@ -696,24 +696,24 @@ const orderData = [
     items: [
       {
         id: "product_04",
-        name: "Stretchy jumper for women",
-        color: "Maroon",
+        name: "Sunconure",
+        color: "Golden",
         quantity: 5,
         price: 21,
         imgSource: staticImages.cart2,
       },
       {
         id: "product_05",
-        name: "Printed white coat",
-        color: "White",
+        name: "German Shepard",
+        color: "Brown",
         quantity: 1,
         price: 23,
         imgSource: staticImages.cart1,
       },
       {
         id: "product_08",
-        name: "Black Color Hoodie",
-        color: "Black",
+        name: "Persian Cat",
+        color: "White",
         quantity: 10,
         price: 90,
         imgSource: staticImages.cart3,
@@ -725,7 +725,7 @@ const orderData = [
 const wishlistData = [
   {
     id: "wishlist_1",
-    name: "Blue Flower Print Crop Top",
+    name: "Sunconure",
     color: "yellow",
     quantity: 1,
     price: 29,
@@ -733,7 +733,7 @@ const wishlistData = [
   },
   {
     id: "wishlist_2",
-    name: "Yellow Flower Print Dress",
+    name: "Pineapple Conure",
     color: "yellow",
     quantity: 4,
     price: 40,
@@ -741,15 +741,15 @@ const wishlistData = [
   },
   {
     id: "wishlist_3",
-    name: "White Hoodie long sleeve",
-    color: "white",
+    name: "Rottwiler",
+    color: "black",
     quantity: 1,
     price: 123,
     imgSource: staticImages.wishitem3,
   },
   {
     id: "wishlist_4",
-    name: "Brown men’s long sleeve T-shirt",
+    name: "Persian Cat",
     color: "brown",
     quantity: 6,
     price: 42,
