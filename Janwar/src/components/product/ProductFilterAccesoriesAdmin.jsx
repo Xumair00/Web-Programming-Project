@@ -6,7 +6,7 @@ import "../../styles/image.css"; // Import your CSS file
 const ProductFilter = () => {
   return (
     <div className="image-container">
-      <img src={staticImages.adopt} alt="Your Image" className="custom-img" />
+      <img src={staticImages.Accessories_Admin} alt="Your Image" className="custom-img" />
     </div>
   );
 };
