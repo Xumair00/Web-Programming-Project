@@ -196,9 +196,9 @@ const ProductDetailsAccessories = () => {
   ));
 
   const breadcrumbItems = [
-    { label: "Home", link: "" },
-    { label: "Product", link: "" },
-    { label: "Accessories", link: "" },
+    { label: "Home", link: "/home" },
+    { label: "Product", link: "/accessories" },
+    { label: "Accessories", link: "/product/accessories/details" },
   ];
 
   return (

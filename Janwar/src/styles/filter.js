@@ -47,7 +47,11 @@ export const FilterWrap = styled.div`
 export const ProductCategoryFilter = styled.div`
   .product-filter-item {
     padding: 4px 0;
-    margin: 12px 0;
+    margin-top: 12px;
+    margin-bottom: 12px;
+    margin-left: 0;
+    margin-right: 0;
+
 
     &:hover {
       .filter-head-title {

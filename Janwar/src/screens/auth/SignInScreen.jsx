@@ -1,13 +1,12 @@
-import styled from "styled-components";
-import { FormGridWrapper, FormTitle } from "../../styles/form_grid.js";
-import { Container } from "../../styles/styles.js";
-import { staticImages } from "../../utils/images.js";
-import AuthOptions from "../../components/auth/AuthOptions.jsx";
-import { FormElement, Input } from "../../styles/form.js";
-import PasswordInput from "../../components/auth/PasswordInput.jsx";
-import { Link } from "react-router-dom";
-import { BaseButtonBlack } from "../../styles/button.js";
-import { breakpoints, defaultTheme } from "../../styles/themes/default.js";
+import React, { useState, useEffect } from 'react';
+import { useNavigate, Link } from 'react-router-dom';
+import styled from 'styled-components';
+import axios from 'axios';
+import { FormGridWrapper, FormTitle } from '../../styles/form_grid';
+import { Container } from '../../styles/styles';
+import { staticImages } from '../../utils/images';
+import { FormElement, Input } from '../../styles/form';
+import { breakpoints, defaultTheme } from '../../styles/themes/default';
 
 const SignInScreenWrapper = styled.section`
   .form-separator {
@@ -40,6 +39,68 @@ const SignInScreenWrapper = styled.section`
 `;
 
 const SignInScreen = () => {
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    localStorage.clear();
+  }, []);
+
+  const [contactData, setContactData] = useState({
+    email: '',
+    password: '',
+  });
+
+  const [showPassword, setShowPassword] = useState(false);
+  const [passwordError, setPasswordError] = useState(false);
+
+  const handleContactChange = (e) => {
+    const { name, value } = e.target;
+    setContactData((prevData) => ({ ...prevData, [name]: value }));
+
+    // Validate password length
+    if (name === 'password') {
+      setPasswordError(value.length < 8);
+    }
+  };
+
+  const toggleShowPassword = () => {
+    setShowPassword((prevState) => !prevState);
+  };
+
+  const login = async () => {
+    try {
+      console.log('Sending message:', contactData);
+      const userObj = await axios.post('http://localhost:5050/user/login', contactData);
+      console.log('Response:', userObj);
+      if (userObj.status === 200) {
+        const loginFlag = true;
+        localStorage.setItem('login_flag', loginFlag);
+        localStorage.setItem('user_data', JSON.stringify(userObj.data));
+        const encodedData = encodeURIComponent(JSON.stringify(userObj.data));
+        if (userObj.data.email == 'officialjanwar2024@gmail.com')
+        {
+          navigate('/admin');
+          window.location.href = '/admin';
+        }
+        else{
+          navigate(`/home?data=${encodedData}`);
+          window.location.href = `/home?data=${encodedData}`;
+        }
+
+      }
+    } catch (error) {
+      console.error('Error logging in:', error);
+      alert('Failed to log in. Please check your credentials and try again.');
+    }
+  };
+
+  const handleFormSubmit = (e) => {
+    e.preventDefault();
+    if (!passwordError) {
+      login();
+    }
+  };
+
   return (
     <SignInScreenWrapper>
       <FormGridWrapper>
@@ -52,35 +113,80 @@ const SignInScreen = () => {
               <FormTitle>
                 <h3>Sign In</h3>
               </FormTitle>
-              <form>
+              <form onSubmit={handleFormSubmit}>
                 <FormElement>
-                  <label htmlFor="" className="form-elem-label">
-                    User name or email address
+                  <label htmlFor="email" className="form-elem-label">
+                    Email address
                   </label>
                   <Input
-                    type="text"
-                    placeholder=""
-                    name=""
+                    type="email"
+                    name="email"
                     className="form-elem-control"
+                    onChange={handleContactChange}
+                    value={contactData.email}
+                    required
                   />
                 </FormElement>
-                <PasswordInput fieldName="Password" name="password" />
-                <Link
-                  to="/reset"
-                  className="form-elem-text text-end font-medium"
-                >
+
+                <FormElement>
+                  <label htmlFor="password" className="form-elem-label">
+                    Password
+                  </label>
+                  <div style={{ position: 'relative' }}>
+                    <Input
+                      type={showPassword ? 'text' : 'password'}
+                      name="password"
+                      className="form-elem-control"
+                      onChange={handleContactChange}
+                      value={contactData.password}
+                      required
+                    />
+                    <button
+                      type="button"
+                      onClick={toggleShowPassword}
+                      style={{
+                        position: 'absolute',
+                        top: 8,
+                        right: 0,
+                        padding: '8px',
+                        border: 'block',
+                        backgroundColor: 'transparent',
+                        cursor: 'pointer',
+                      }}
+                    >
+                      {showPassword ? 'Hide' : 'Show'}
+                    </button>
+                  </div>
+                </FormElement>
+
+                <Link to="/reset" className="form-elem-text text-end font-medium">
                   Forgot your password?
                 </Link>
-                <BaseButtonBlack type="submit" className="form-submit-btn">
+
+                <button className="form-submit-btn" 
+                  style={{
+                    backgroundColor: '#2c5282',
+                    color: '#fff',
+                    fontWeight: 'bold',
+                    padding: '0.5rem 1rem',
+                    borderRadius: '0.25rem',
+                    cursor: 'pointer',
+                    transition: 'background-color 0.3s ease',
+                    outline: 'none',
+                    border: 'none',
+                  }}
+                  type="submit"
+                  disabled={passwordError}
+                >
                   Sign In
-                </BaseButtonBlack>
+                </button>
+                
               </form>
               <p className="flex flex-wrap account-rel-text">
-                Don&apos;t have a account?
+                Don't have an account?
                 <Link to="/sign_up" className="font-medium">
                   Sign Up
                 </Link>
-                `
               </p>
             </div>
           </div>

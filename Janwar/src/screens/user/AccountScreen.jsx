@@ -8,6 +8,9 @@ import { FormElement, Input } from "../../styles/form";
 import { BaseLinkGreen } from "../../styles/button";
 import { Link } from "react-router-dom";
 import { breakpoints, defaultTheme } from "../../styles/themes/default";
+import React, {useEffect} from "react";
+import { useState } from "react";
+import axios from "axios";
 
 const AccountScreenWrapper = styled.main`
   .address-list {
@@ -52,12 +55,44 @@ const AccountScreenWrapper = styled.main`
 const breadcrumbItems = [
   {
     label: "Home",
-    link: "/",
+    link: "/home",
   },
   { label: "Account", link: "/account" },
 ];
 
+
 const AccountScreen = () => {
+
+  const [name, setName] = useState(''); // Initialize name state variable
+  const [email, setEmail] = useState(''); // Initialize email state variable
+  const [phone, setPhone] = useState(''); // Initialize phone state variable
+  const [password, setPassword] = useState(''); // Initialize password state variable
+  const [address, setAddress] = useState(''); // Initialize address state variable
+
+  const [showPassword, setShowPassword] = useState(false);
+
+  const togglePasswordVisibility = (event) => {
+    event.preventDefault();
+    setShowPassword(!showPassword);
+  };
+  
+
+  useEffect(() => {
+    const userData = localStorage.getItem('user_data');
+    const name = JSON.parse(userData).name;
+    const email = JSON.parse(userData).email;
+    const phone = JSON.parse(userData).phone;
+    const password = JSON.parse(userData).password;
+    const address = JSON.parse(userData).address;
+    setAddress(address);
+    setName(name);
+    setEmail(email);
+    setPhone(phone);
+    setPassword(password);
+    console.log('User Data:', name, email, phone, password, address);
+
+
+  }, []);
   return (
     <AccountScreenWrapper className="page-py-spacing">
       <Container>
@@ -80,12 +115,10 @@ const AccountScreen = () => {
                     <Input
                       type="text"
                       className="form-elem-control text-outerspace font-semibold"
-                      value="Mehdy Hasnain"
+                      value= {name}
                       readOnly
                     />
-                    <button type="button" className="form-control-change-btn">
-                      Change
-                    </button>
+                   
                   </div>
                 </FormElement>
                 <FormElement className="form-elem">
@@ -99,12 +132,10 @@ const AccountScreen = () => {
                     <Input
                       type="email"
                       className="form-elem-control text-outerspace font-semibold"
-                      value="mehdy922@gmail.com"
+                      value={email}
                       readOnly
                     />
-                    <button type="button" className="form-control-change-btn">
-                      Change
-                    </button>
+                    
                   </div>
                 </FormElement>
                 <FormElement className="form-elem">
@@ -118,12 +149,10 @@ const AccountScreen = () => {
                     <Input
                       type="text"
                       className="form-elem-control text-outerspace font-semibold"
-                      value="+923178453636"
+                      value={phone}
                       readOnly
                     />
-                    <button type="button" className="form-control-change-btn">
-                      Change
-                    </button>
+                    
                   </div>
                 </FormElement>
                 <FormElement className="form-elem">
@@ -135,86 +164,37 @@ const AccountScreen = () => {
                   </label>
                   <div className="form-input-wrapper flex items-center">
                     <Input
-                      type="password"
+                      type={showPassword ? "text" : "password"}
+        
                       className="form-elem-control text-outerspace font-semibold"
-                      value="Pass Key"
+                      value={password}
                       readOnly
                     />
-                    <button type="button" className="form-control-change-btn">
-                      Change
+                    <button onClick={togglePasswordVisibility}>
+                      {showPassword ? "Hide" : "Show"} Password
                     </button>
+                    
                   </div>
                 </FormElement>
               </div>
             </form>
             <div>
               <h4 className="title-sm">My Contact Addresss</h4>
-              <BaseLinkGreen to="/account/add">Add Address</BaseLinkGreen>
               <div className="address-list grid">
                 <div className="address-item grid">
                   <p className="text-outerspace text-lg font-semibold address-title">
-                    Mehdy Hasnain
+                    {name}
                   </p>
                   <p className="text-gray text-base font-medium address-description">
-                    1/4 Watson Street Flat, East Coastal Road, Ohio City
-                  </p>
-                  <ul className="address-tags flex flex-wrap">
-                    <li className="text-gray text-base font-medium inline-flex items-center justify-center">
-                      Home
-                    </li>
-                    <li className="text-gray text-base font-medium inline-flex items-center justify-center">
-                      Default billing address
-                    </li>
-                  </ul>
-                  <div className="address-btns flex">
-                    <Link
-                      to="/"
-                      className="text-base text-outerspace font-semibold"
-                    >
-                      Remove
-                    </Link>
-                    <div className="btn-separator"></div>
-                    <Link
-                      to="/"
-                      className="text-base text-outerspace font-semibold"
-                    >
-                      Edit
-                    </Link>
+                    {address}
+                    </p>
                   </div>
                 </div>
 
-                <div className="address-item grid">
-                  <p className="text-outerspace text-lg font-semibold address-title">
-                    Mehdy Hasnain
-                  </p>
-                  <p className="text-gray text-base font-medium address-description">
-                    1/4 Watson Street Flat, East Coastal Road, Ohio City
-                  </p>
-                  <ul className="address-tags flex flex-wrap">
-                    <li className="text-gray text-base font-medium inline-flex items-center justify-center">
-                      Home
-                    </li>
-                    <li className="text-gray text-base font-medium inline-flex items-center justify-center">
-                      Default billing address
-                    </li>
-                  </ul>
-                  <div className="address-btns flex">
-                    <Link
-                      to="/"
-                      className="text-base text-outerspace font-semibold"
-                    >
-                      Remove
-                    </Link>
-                    <div className="btn-separator"></div>
-                    <Link
-                      to="/"
-                      className="text-base text-outerspace font-semibold"
-                    >
-                      Edit
-                    </Link>
-                  </div>
-                </div>
-              </div>
+                
+                  
+                
+              
             </div>
           </UserContent>
         </UserDashboardWrapper>

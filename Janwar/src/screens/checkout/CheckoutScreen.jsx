@@ -4,6 +4,10 @@ import Title from "../../components/common/Title";
 import Billing from "../../components/checkout/Billing";
 import ShippingPayment from "../../components/checkout/ShippingPayment";
 import { breakpoints, defaultTheme } from "../../styles/themes/default";
+import React, { useState, useEffect } from "react";
+import axios from "axios";
+import { json } from "react-router-dom";
+
 
 const CheckoutScreenWrapper = styled.main`
   padding: 48px 0;
@@ -20,11 +24,12 @@ const CheckoutScreenWrapper = styled.main`
 `;
 
 const CheckoutScreen = () => {
+  
+ 
   return (
     <CheckoutScreenWrapper>
       <Container>
         <Title titleText={"Check Out"} />
-        <Billing />
         <div className="horiz-line-separator w-full"></div>
         <ShippingPayment />
       </Container>

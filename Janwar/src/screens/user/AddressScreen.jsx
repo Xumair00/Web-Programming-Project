@@ -20,7 +20,7 @@ const AddressScreenWrapper = styled.main`
 `;
 
 const breadcrumbItems = [
-  { label: "Home", link: "/" },
+  { label: "Home", link: "/home" },
   { label: "Account", link: "/account" },
   { label: "Add Address", link: "/account/add" },
 ];

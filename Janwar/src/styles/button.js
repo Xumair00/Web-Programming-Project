@@ -39,6 +39,10 @@ const BaseButtonGreen = styled(BaseButton)`
   background-color: ${defaultTheme.color_sea_green};
   border-color: ${defaultTheme.color_sea_green};
 `;
+const BaseButtonRed = styled(BaseButton)`
+  background-color: ${defaultTheme.color_red};
+  border-color: ${defaultTheme.color_black};
+`;
 
 const BaseButtonBlack = styled(BaseButton)`
   background-color: ${defaultTheme.color_black};
@@ -100,4 +104,5 @@ export {
   BaseLinkOutlineDark,
   BaseLinkOutlineWhite,
   BaseLinkOutlinePlatinum,
+  BaseButtonRed,
 };
