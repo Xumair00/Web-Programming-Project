@@ -140,11 +140,11 @@ const ProductDetailsAdopt = () => {
       }`}
     ></span>
   ));
-
+  
   const breadcrumbItems = [
-    { label: "Home", link: "" },
-    { label: "Product", link: "" },
-    { label: "Adopt Pet", link: "" },
+    { label: "Home", link: "/home" },
+    { label: "Product", link: "/adopt" },
+    { label: "Adopt Pet", link: "/product/adopt/details" },
   ];
   return (
     <DetailsScreenWrapper>

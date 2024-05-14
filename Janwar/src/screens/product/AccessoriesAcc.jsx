@@ -2,16 +2,16 @@ import styled from "styled-components";
 import { Container, ContentStylings, Section } from "../../styles/styles";
 import Breadcrumb from "../../components/common/Breadcrumb";
 import { Link } from "react-router-dom";
-import ProductList from "../../components/product/ProductList";
+import ProductList from "../../components/product/ProductListAcc";
 import { products } from "../../data/data";
 import Title from "../../components/common/Title";
 import { breakpoints, defaultTheme } from "../../styles/themes/default";
-import ProductFilter from "../../components/product/ProductFilterAccessories";
+import ProductFilter from "../../components/product/ProductFilterAccesoriesAdmin";
 import { useState } from "react";
-import React, {useEffect} from "react";
+import React, { useEffect } from "react";
 import axios from "axios";
 
-let accessoriesList = []
+let accessoriesList = [];
 
 const ProductsContent = styled.div`
   grid-template-columns: 320px auto;
@@ -99,13 +99,11 @@ const SearchBar = styled.input`
   margin-bottom: 20px;
 `;
 
-const Accessories = () => {
+const AccessoriesAcc = () => {
   const breadcrumbItems = [
-    { label: "Home", link: "/home" },
-    { label: "Accessories", link: "/accessories" },
+    { label: "Admin", link: "/admin" },
+    { label: "Accessories", link: "/accessoriesAcc" },
   ];
-
-
 
   const [accessoriesList, setaccessoriesList] = useState([]);
   const [filteredaccessoriesList, setFilteredaccessoriesList] = useState([]);
@@ -118,12 +116,10 @@ const Accessories = () => {
   const loadProducts = async () => {
     try {
       console.log("Fetching data...");
-      //link change karna database ka
       const userObj = await axios.post('http://localhost:5050/user/getAds_accessories');
       if (userObj.status === 200) {
         console.log("Response:", userObj.data);
-        setaccessoriesList(userObj.data);  // Update accessoriesList using the state setter function
-        console.log("accessoriesList:", accessoriesList);
+        setaccessoriesList(userObj.data);
       }
     } catch (error) {
       console.error("Failed to fetch data:", error);
@@ -135,6 +131,21 @@ const Accessories = () => {
       return pet.title.toLowerCase().includes(searchQuery.toLowerCase());
     });
     setFilteredaccessoriesList(filteredList);
+  };
+
+  const handleDelete = async (id) => {
+    try {
+      console.log("Deleting product with id:", id);
+      // Make an HTTP request to delete the product with the given id
+      const response = await axios.delete(`http://localhost:5050/user/deleteAd_accessories/${id}`);
+      if (response.status === 200) {
+        console.log("Product deleted successfully.");
+        // Reload products after deletion
+        loadProducts();
+      }
+    } catch (error) {
+      console.error("Failed to delete product:", error);
+    }
   };
 
   return (
@@ -150,52 +161,25 @@ const Accessories = () => {
               type="text"
               placeholder="Search Accessories..."
               value={searchQuery}
-              onChange={(e) => {setSearchQuery(e.target.value); handleSearch();}}
+              onChange={(e) => { setSearchQuery(e.target.value); }}
               onKeyDown={(e) => {
                 if (e.key === "Enter") handleSearch();
               }}
             />
             {filteredaccessoriesList.length > 0 ? (
-                <>
-                  <ProductList products={filteredaccessoriesList} />
-                  {console.log("filteredaccessoriesList")}
-                </>
-              ) : (
-                <>
-                  <ProductList products={accessoriesList} />
-                  {console.log("accessoriesList")}
-                </>
-              )}
+              <>
+                <ProductList products={filteredaccessoriesList} onDelete={handleDelete} />
+              </>
+            ) : (
+              <>
+                <ProductList products={accessoriesList} onDelete={handleDelete} />
+              </>
+            )}
           </ProductsContentRight>
         </ProductsContent>
       </Container>
-      <Section>
-        <Container>
-          <DescriptionContent>
-            <Title titleText={"Pamper Your Pet with Premium Accessories"} />
-            <ContentStylings className="text-base content-stylings">
-              <h4>Shop Trendy and Functional Accessories for Pets of All Kinds</h4>
-              <p>
-              Explore our collection of high-quality accessories designed to make your pet's life even better. From stylish collars to cozy beds and everything in between, we have everything you need to pamper your furry friend.
-              </p>
-              <p>
-              Give your pet the star treatment with our curated selection of accessories. Whether it's a fun new toy to keep them entertained or a comfortable bed to help them rest, we have something for every pet parent.
-              </p>
-              <h4>
-              Enhance Your Pet's Comfort and Happiness with Our Accessories
-              </h4>
-              <p>
-              Discover a world of possibilities for your pet with our diverse range of accessories. Whether you're looking to add a pop of color to their wardrobe or upgrade their grooming routine, we have the perfect accessories to suit every pet's personality and lifestyle.
-              </p>
-              <p>
-              At our store, we understand that pets are family, and they deserve the best. That's why we've handpicked a range of accessories that combine style, functionality, and durability to meet the unique needs of your beloved pets.
-              </p>
-            </ContentStylings>
-          </DescriptionContent>
-        </Container>
-      </Section>
     </main>
   );
 };
 
-export default Accessories;
+export default AccessoriesAcc;

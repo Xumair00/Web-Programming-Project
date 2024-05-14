@@ -3,10 +3,16 @@ import { Container, ContentStylings, Section } from "../../styles/styles";
 import Breadcrumb from "../../components/common/Breadcrumb";
 import { Link } from "react-router-dom";
 import ProductList from "../../components/product/ProductList";
-import { products } from "../../data/data";
+//import { products } from "../../data/data";
 import Title from "../../components/common/Title";
 import { breakpoints, defaultTheme } from "../../styles/themes/default";
 import ProductFilter from "../../components/product/ProductFilter";
+import React, {useEffect} from "react";
+import { useState } from "react";
+import axios from "axios";
+import { combineReducers } from "@reduxjs/toolkit";
+
+let petlist = []
 
 const ProductsContent = styled.div`
   grid-template-columns: 320px auto;
@@ -86,13 +92,51 @@ const DescriptionContent = styled.div`
   }
 `;
 
+const SearchBar = styled.input`
+  width: 100%;
+  padding: 10px;
+  border: 1px solid ${defaultTheme.color_gray};
+  border-radius: 8px;
+  margin-bottom: 20px;
+`;
+
 const BuyPet = () => {
   const breadcrumbItems = [
-    { label: "Home", link: "/" },
-
-    { label: "Products", link: "/buy" },
+    { label: "Home", link: "/home" },
+    { label: "BuyPets", link: "/buy" },
 
   ];
+
+  const [petlist, setPetlist] = useState([]);
+  const [filteredPetList, setFilteredPetList] = useState([]);
+  const [searchQuery, setSearchQuery] = useState("");
+
+  useEffect(() => {
+    loadProducts();
+  }, []);
+
+
+  const loadProducts = async () => {
+    try {
+      console.log("Fetching data...");
+      const userObj = await axios.post('http://localhost:5050/user/getAds_sells');
+      if (userObj.status === 200) {
+        console.log("Response:", userObj);
+        setPetlist(userObj.data);  // Update petlist using the state setter function
+        console.log("Petlist:", petlist);
+      }
+    } catch (error) {
+      console.error("Failed to fetch data:", error);
+    }
+  };
+
+  const handleSearch = () => {
+    const filteredList = petlist.filter(pet => {
+      return pet.title.toLowerCase().includes(searchQuery.toLowerCase());
+    });
+    setFilteredPetList(filteredList);
+  };
+
   return (
     <main className="page-py-spacing">
       <Container>
@@ -102,7 +146,27 @@ const BuyPet = () => {
             <ProductFilter />
           </ProductsContentLeft>
           <ProductsContentRight>
-            <div className="products-right-top flex items-center justify-between">
+          <SearchBar
+              type="text"
+              placeholder="Search pets..."
+              value={searchQuery}
+              onChange={(e) => {setSearchQuery(e.target.value); handleSearch();}}
+              onKeyDown={(e) => {
+                if (e.key === "Enter") handleSearch();
+              }}
+            />
+            {filteredPetList.length > 0 ? (
+                <>
+                  <ProductList products={filteredPetList} />
+                  {console.log("filteredPetList")}
+                </>
+              ) : (
+                <>
+                  <ProductList products={petlist} />
+                  {console.log("petlist")}
+                </>
+              )}
+            {/* <div className="products-right-top flex items-center justify-between">
               <h4 className="text-xxl">Buy Pets</h4>
               <ul className="products-right-nav flex items-center justify-end flex-wrap">
                 <li>
@@ -116,8 +180,8 @@ const BuyPet = () => {
                   </Link>
                 </li>
               </ul>
-            </div>
-            <ProductList products={products.slice(0, 12)} />
+            </div> */}
+            {/* {<ProductList products={petlist} />} */}
           </ProductsContentRight>
         </ProductsContent>
       </Container>
