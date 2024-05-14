@@ -30,7 +30,7 @@ const CartDiscountWrapper = styled.div`
     padding-right: 12px;
     border-right: none;
   }
-  
+
   .coupon-btn {
     padding: 2px 16px;
     border-top-left-radius: 0;
@@ -47,20 +47,11 @@ const CartDiscount = () => {
   return (
     <CartDiscountWrapper>
       <h3 className="text-xxl text-outerspace">Discount Codes</h3>
-      <p className="text-base text-gray">
-        Enter your coupon code if you have one.
-      </p>
+      <p className="text-base text-gray">Enter your coupon code if you have one.</p>
       <form action="">
         <div className="coupon-group flex">
-          <Input
-            type="text"
-            className="coupon-input w-full"
-            placeholder="Search"
-          />
-          <BaseButtonOuterspace
-            type="submit"
-            className="coupon-btn no-wrap h-full"
-          >
+          <Input type="text" className="coupon-input w-full" placeholder="Search" />
+          <BaseButtonOuterspace type="submit" className="coupon-btn no-wrap h-full">
             Apply Coupon
           </BaseButtonOuterspace>
         </div>
@@ -70,7 +61,7 @@ const CartDiscount = () => {
         to="/"
         className="contd-shop-btn w-full text-gray"
       >
-        continue shopping
+        Continue Shopping
       </BaseLinkOutlinePlatinum>
     </CartDiscountWrapper>
   );
