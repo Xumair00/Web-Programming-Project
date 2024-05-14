@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import ProductItem from "./ProductItem";
+import ProductItem from "./ProductItemAcc";
 import PropTypes from "prop-types";
 import { breakpoints } from "../../styles/themes/default";
 
@@ -14,15 +14,14 @@ const ProductListWrapper = styled.div`
   }
 `;
 
-const ProductList = ({ products }) => {
-  console.log('Products:', products.length);
+const ProductList = ({ products, onDelete }) => {
   if (!products || products.length === 0) {
     return <p>No products available.</p>;
   }
   return (
     <ProductListWrapper className="grid">
       {products.map((product) => {
-        return <ProductItem key={product._id} product={product} />;
+        return <ProductItem key={product._id} product={product} onDelete={() => onDelete(product._id)} />;
       })}
     </ProductListWrapper>
   );
@@ -30,6 +29,7 @@ const ProductList = ({ products }) => {
 
 ProductList.propTypes = {
   products: PropTypes.array,
+  onDelete: PropTypes.func.isRequired, // Pass onDelete function as a prop and mark it as required
 };
 
 export default ProductList;

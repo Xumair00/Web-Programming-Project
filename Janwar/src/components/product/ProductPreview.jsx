@@ -2,6 +2,7 @@ import styled from "styled-components";
 import { PropTypes } from "prop-types";
 import { useState } from "react";
 import { breakpoints, defaultTheme } from "../../styles/themes/default";
+import { useEffect } from "react";
 
 const ProductPreviewWrapper = styled.div`
   grid-template-columns: 72px auto;
@@ -81,34 +82,31 @@ const ProductPreviewWrapper = styled.div`
 `;
 
 const ProductPreview = ({ previewImages }) => {
-  const [activePreviewImage, setActivePreviewImage] = useState(
-    previewImages[0].imgSource
-  );
+  const [activePreviewImage, setActivePreviewImage] = useState(previewImages);
 
   const handlePreviewImageChange = (previewImage) => {
     setActivePreviewImage(previewImage);
   };
 
+  useEffect(() => {
+    setActivePreviewImage(previewImages);
+  }, [previewImages]);
+
   return (
     <ProductPreviewWrapper className="grid items-center">
       <div className="preview-items w-full">
-        {previewImages.map((previewImage) => {
-          return (
-            <div
-              className="preview-item-wrapper"
-              key={previewImage.id}
-              onClick={() => handlePreviewImageChange(previewImage.imgSource)}
-            >
-              <div className="preview-item">
-                <img
-                  src={previewImage.imgSource}
-                  alt=""
-                  className="object-fit-cover"
-                />
-              </div>
-            </div>
-          );
-        })}
+        <div
+          className="preview-item-wrapper"
+          onClick={() => handlePreviewImageChange(previewImages)}
+        >
+          <div className="preview-item">
+            <img
+              src={previewImages}
+              alt=""
+              className="object-fit-cover"
+            />
+          </div>
+        </div>
       </div>
       <div className="preview-display">
         <img src={activePreviewImage} className="object-fit-cover" alt="" />
@@ -116,7 +114,6 @@ const ProductPreview = ({ previewImages }) => {
     </ProductPreviewWrapper>
   );
 };
-
 export default ProductPreview;
 
 ProductPreview.propTypes = {
