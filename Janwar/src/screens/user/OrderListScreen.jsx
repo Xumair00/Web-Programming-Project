@@ -8,6 +8,10 @@ import { breakpoints, defaultTheme } from "../../styles/themes/default";
 import { orderData } from "../../data/data";
 import OrderItemList from "../../components/user/OrderItemList";
 
+import React, {useEffect} from "react";
+import { useState, useRef } from "react";
+import axios from "axios";
+
 const OrderListScreenWrapper = styled.div`
   .order-tabs-contents {
     margin-top: 40px;
@@ -32,11 +36,44 @@ const OrderListScreenWrapper = styled.div`
 `;
 
 const breadcrumbItems = [
-  { label: "Home", link: "/" },
+  { label: "Home", link: "/home" },
   { label: "Order", link: "/order" },
 ];
 
 const OrderListScreen = () => {
+  const [petlist, setPetlist] = useState([]);
+  const isMounted = useRef(true);
+useEffect(() => {
+  isMounted.current = true;
+  fetchCartItems();
+  return () => {
+    isMounted.current = false;
+  };
+}, []);
+
+const fetchCartItems = async () => {
+  const buyer = JSON.parse(localStorage.getItem('user_data'));
+  try {
+    console.log("Fetching data...");
+    const response = await axios.post('http://localhost:5050/user/get_order');
+
+    // Check if the component is still mounted before updating state
+    if (isMounted.current && response.status === 200) {
+      console.log("API response data:", response.data);
+      console.log('Response = ', response.data)
+      // Filter out objects where user_id is not 'buyer'
+      const filteredOrderItems = response.data.filter(item => item.buyerID === buyer._id);
+      console.log('Filtered order items:', filteredOrderItems);
+      setPetlist(filteredOrderItems);
+    }
+  } catch (error) {
+    console.error("Failed to fetch cart items:", error);
+    setPetlist([]);
+  }
+};
+
+
+
   return (
     <OrderListScreenWrapper className="page-py-spacing">
       <Container>
@@ -46,39 +83,9 @@ const OrderListScreen = () => {
           <UserContent>
             <Title titleText={"My Orders"} />
             <div className="order-tabs">
-              <div className="order-tabs-heads">
-                <button
-                  type="button"
-                  className="order-tabs-head text-xl italic order-tabs-head-active"
-                  data-id="active"
-                >
-                  Active
-                </button>
-                <button
-                  type="button"
-                  className="order-tabs-head text-xl italic"
-                  data-id="cancelled"
-                >
-                  Cancelled
-                </button>
-                <button
-                  type="button"
-                  className="order-tabs-head text-xl italic"
-                  data-id="completed"
-                >
-                  Completed
-                </button>
-              </div>
-
               <div className="order-tabs-contents">
                 <div className="order-tabs-content" id="active">
-                    <OrderItemList orders = {orderData} />
-                </div>
-                <div className="order-tabs-content" id="cancelled">
-                    Cancelled content
-                </div>
-                <div className="order-tabs-content" id="completed">
-                    Completed content
+                    <OrderItemList orders = {petlist} />
                 </div>
               </div>
             </div>
