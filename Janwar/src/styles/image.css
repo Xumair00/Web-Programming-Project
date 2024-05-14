@@ -1,0 +1,8 @@
+.custom-img {
+    width: 100%; /* Ensuring the image takes the full width of its container */
+  }
+  
+  .image-container {
+    margin: 12px 0; /* Applying margin to the container */
+    height: auto; /* Allowing the container to adjust its height based on the image */
+  }
