@@ -1,7 +1,7 @@
 import styled from "styled-components";
 import PropTypes from "prop-types";
 import { currencyFormat } from "../../utils/helper";
-import { BaseLinkGreen } from "../../styles/button";
+import { BaseButtonRed } from "../../styles/button";
 import { breakpoints, defaultTheme } from "../../styles/themes/default";
 
 const OrderItemWrapper = styled.div`
@@ -90,29 +90,33 @@ const OrderItemWrapper = styled.div`
   }
 `;
 
-const OrderItem = ({ order }) => {
+const OrderItem = ({ product, onDelete }) => {
+  const handleDelete = () => {
+    onDelete(product.id); // Pass the product id to the onDelete function
+  };
+
   return (
     <OrderItemWrapper>
       <div className="order-item-details">
-        <h3 className="text-x order-item-title">Order no: {order._id}</h3>
+        <h3 className="text-x order-item-title">Ad no: {product._id}</h3>
         <div className="order-info-group flex flex-wrap">
           <div className="order-info-item">
-            <span className="text-gray font-semibold">Order Date:</span>
-            <span className="text-silver">{order.timestamp}</span>
+            <span className="text-gray font-semibold">Ad Title:</span>
+            <span className="text-silver">{product.title}</span>
           </div>
           <div className="order-info-item">
-            <span className="text-gray font-semibold">Payment Method:</span>
-            <span className="text-silver">{order.paymentMethod}</span>
+            <span className="text-gray font-semibold">Ad Category:</span>
+            <span className="text-silver">{product.postCategory}</span>
           </div>
           <div className="order-info-item">
             <span className="text-gray font-semibold">
               Price:
             </span>
-            <span className="text-silver">{order.price}</span>
+            <span className="text-silver">{product.price}</span>
           </div>
           <div className="order-info-item">
             <span className="text-gray font-semibold">Pet Type:</span>
-            <span className="text-silver">{order.pet_type}</span>
+            <span className="text-silver">{product.pet_type}</span>
           </div>
         </div>
       </div>
@@ -120,31 +124,32 @@ const OrderItem = ({ order }) => {
         <div className="order-overview-content grid">
           <div className="order-overview-img">
             <img
-              src={order.images}
+              src={product.images}
               alt=""
               className="object-fit-cover"
             />
           </div>
           <div className="order-overview-info">
-            <h4 className="text-xl">{order.title}</h4>
+            <h4 className="text-xl">{product.title}</h4>
             <ul>
               <li className="font-semibold text-base">
-                <span>Location</span>
-                <span className="text-silver">{order.location}</span>
+                <span>Sex:</span>
+                <span className="text-silver">{product.gender}</span>
               </li>
               <li className="font-semibold text-base">
-                <span>Description:</span>
-                <span className="text-silver">{order.description}</span>
+                <span>Health Status:</span>
+                <span className="text-silver">{product.health_status}</span>
               </li>
               <li className="font-semibold text-base">
                 <span>Price:</span>
                 <span className="text-silver">
-                  {order.price}
+                  {product.price}
                 </span>
               </li>
             </ul>
           </div>
         </div>
+        <BaseButtonRed type="button" onClick={handleDelete}>Delete</BaseButtonRed>
       </div>
     </OrderItemWrapper>
   );
@@ -154,4 +159,5 @@ export default OrderItem;
 
 OrderItem.propTypes = {
   order: PropTypes.object,
+  onDelete: PropTypes.func.isRequired,
 };

@@ -67,62 +67,47 @@ const UserMenu = () => {
   const location = useLocation();
   return (
     <div>
-      <Title titleText={"Hello"} />
-      <p className="text-base font-light italic">Welcome to your account.</p>
+      <Title titleText={"Admin Panel"} />
+      <p className="text-base font-light italic">Welcome Back Admin.</p>
 
       <NavMenuWrapper>
         <ul className="nav-menu-list grid">
           <li className="nav-menu-item">
             <Link
-              to="/order"
-              className={`nav-menu-link flex items-center ${
-                location.pathname === "/order" ||
-                location.pathname === "/order"
-                  ? "active"
-                  : ""
-              }`}
+              to="/admin"
+              className={`nav-menu-link flex items-center`}
             >
               <span className="nav-link-icon flex items-center justify-center">
                 <img src="./assets/icons/ac_orders.svg" alt="" />
               </span>
               <span className="text-base font-semibold nav-link-text no-wrap">
-                My orders
+              Admin Page
               </span>
             </Link>
           </li>
           <li className="nav-menu-item">
             <Link
-              to="/myads"
-              className={`nav-menu-link flex items-center ${
-                location.pathname === "/myads" ||
-                location.pathname === "/myads"
-                  ? "active"
-                  : ""
-              }`}
+              to="/postacc"
+              className={`nav-menu-link flex items-center`}
             >
               <span className="nav-link-icon flex items-center justify-center">
                 <img src="./assets/icons/ac_orders.svg" alt="" />
               </span>
               <span className="text-base font-semibold nav-link-text no-wrap">
-                My Ads
+              Post Accessory
               </span>
             </Link>
           </li>
           <li className="nav-menu-item">
             <Link
-              to="/account"
-              className={`nav-menu-link flex items-center ${
-                location.pathname === "/account" ||
-                location.pathname === "/account/add"
-                  ? "active"
-                  : ""
-              }`}
+              to="/accessoriesAcc"
+              className={`nav-menu-link flex items-center`}
             >
               <span className="nav-link-icon flex items-center justify-center">
                 <img src="./assets/icons/ac_user.svg" alt="" />
               </span>
               <span className="text-base font-semibold nav-link-text no-wrap">
-                My Account
+                View Accessories
               </span>
             </Link>
           </li>
