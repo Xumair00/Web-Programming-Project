@@ -1,7 +1,7 @@
 import styled from "styled-components";
 import { Container, Section } from "../../styles/styles";
 import Title from "../common/Title";
-import { PetsForSale } from "../../data/data";
+import { PetsForSale2 } from "../../data/data";
 import { BaseLinkOutlineWhite } from "../../styles/button";
 import { breakpoints } from "../../styles/themes/default";
 
@@ -106,13 +106,13 @@ const ProductCardOverlayWrapper = styled.div`
   }
 `;
 
-const Catalog = () => {
+const Catalog2 = () => {
   return (
     <Section>
       <Container>
-        <Title titleText={"Pets For Sale"} />
+        <Title titleText={"Pets For Adoption"} />
         <ProductGridWrapper className="grid">
-          {PetsForSale?.map((PetSell) => {
+          {PetsForSale2?.map((PetSell) => {
             return (
               <ProductCardOverlayWrapper
                 className="product-card-overlay text-white"
@@ -131,17 +131,17 @@ const Catalog = () => {
                     {PetSell.description}
                   </p>
                   <p className="discount-text text-bold text-xxl uppercase">
-                    Buy Your Pet Now
+                    Adopt Your Pet Now
                   </p>
                   <div className="info-arrow flex items-center justify-center text-xxl">
                     <i className="bi bi-arrow-down"></i>
                   </div>
                   <BaseLinkOutlineWhite
                     as={BaseLinkOutlineWhite}
-                    to="/buy"
+                    to="/adopt"
                     className="uppercase"
                   >
-                    BUY NOW!
+                    ADOPT NOW!
                   </BaseLinkOutlineWhite>
                 </div>
               </ProductCardOverlayWrapper>
@@ -153,4 +153,4 @@ const Catalog = () => {
   );
 };
 
-export default Catalog;
+export default Catalog2;
