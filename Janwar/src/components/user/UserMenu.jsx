@@ -67,7 +67,7 @@ const UserMenu = () => {
   const location = useLocation();
   return (
     <div>
-      <Title titleText={"Hello Richard"} />
+      <Title titleText={"Hello"} />
       <p className="text-base font-light italic">Welcome to your account.</p>
 
       <NavMenuWrapper>
@@ -77,7 +77,7 @@ const UserMenu = () => {
               to="/order"
               className={`nav-menu-link flex items-center ${
                 location.pathname === "/order" ||
-                location.pathname === "/order_detail"
+                location.pathname === "/order"
                   ? "active"
                   : ""
               }`}
@@ -92,19 +92,19 @@ const UserMenu = () => {
           </li>
           <li className="nav-menu-item">
             <Link
-              to="/wishlist"
+              to="/myads"
               className={`nav-menu-link flex items-center ${
-                location.pathname === "/wishlist" ||
-                location.pathname === "/empty_wishlist"
+                location.pathname === "/myads" ||
+                location.pathname === "/myads"
                   ? "active"
                   : ""
               }`}
             >
               <span className="nav-link-icon flex items-center justify-center">
-                <img src="./assets/icons/ac_heart.svg" alt="" />
+                <img src="./assets/icons/ac_orders.svg" alt="" />
               </span>
               <span className="text-base font-semibold nav-link-text no-wrap">
-                Wishlist
+                My Ads
               </span>
             </Link>
           </li>

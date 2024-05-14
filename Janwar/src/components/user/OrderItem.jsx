@@ -94,25 +94,25 @@ const OrderItem = ({ order }) => {
   return (
     <OrderItemWrapper>
       <div className="order-item-details">
-        <h3 className="text-x order-item-title">Order no: {order.order_no}</h3>
+        <h3 className="text-x order-item-title">Order no: {order._id}</h3>
         <div className="order-info-group flex flex-wrap">
           <div className="order-info-item">
             <span className="text-gray font-semibold">Order Date:</span>
-            <span className="text-silver">{order.order_date}</span>
+            <span className="text-silver">{order.timestamp}</span>
           </div>
           <div className="order-info-item">
-            <span className="text-gray font-semibold">Order Status:</span>
-            <span className="text-silver">{order.status}</span>
+            <span className="text-gray font-semibold">Payment Method:</span>
+            <span className="text-silver">{order.paymentMethod}</span>
           </div>
           <div className="order-info-item">
             <span className="text-gray font-semibold">
-              Estimated Delivery Date:
+              Price:
             </span>
-            <span className="text-silver">{order.delivery_date}</span>
+            <span className="text-silver">{order.price}</span>
           </div>
           <div className="order-info-item">
-            <span className="text-gray font-semibold">Method:</span>
-            <span className="text-silver">{order.payment_method}</span>
+            <span className="text-gray font-semibold">Pet Type:</span>
+            <span className="text-silver">{order.pet_type}</span>
           </div>
         </div>
       </div>
@@ -120,32 +120,31 @@ const OrderItem = ({ order }) => {
         <div className="order-overview-content grid">
           <div className="order-overview-img">
             <img
-              src={order.items[0].imgSource}
+              src={order.images}
               alt=""
               className="object-fit-cover"
             />
           </div>
           <div className="order-overview-info">
-            <h4 className="text-xl">{order.items[0].name}</h4>
+            <h4 className="text-xl">{order.title}</h4>
             <ul>
               <li className="font-semibold text-base">
-                <span>Colour:</span>
-                <span className="text-silver">{order.items[0].color}</span>
+                <span>Location</span>
+                <span className="text-silver">{order.location}</span>
               </li>
               <li className="font-semibold text-base">
-                <span>Qty:</span>
-                <span className="text-silver">{order.items[0].quantity}</span>
+                <span>Description:</span>
+                <span className="text-silver">{order.description}</span>
               </li>
               <li className="font-semibold text-base">
-                <span>Total:</span>
+                <span>Price:</span>
                 <span className="text-silver">
-                  {currencyFormat(order.items[0].price)}
+                  {order.price}
                 </span>
               </li>
             </ul>
           </div>
         </div>
-        <BaseLinkGreen to="/order_detail">View Detail</BaseLinkGreen>
       </div>
     </OrderItemWrapper>
   );
