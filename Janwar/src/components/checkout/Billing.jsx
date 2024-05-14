@@ -130,15 +130,6 @@ const Billing = () => {
               </label>
               <Input type="text" placeholder="Country / Region" />
             </div>
-            <div className="input-elem">
-              <label
-                htmlFor=""
-                className="text-base text-outerspace font-semibold"
-              >
-                Company Name
-              </label>
-              <Input type="text" placeholder="Company (optional)" />
-            </div>
           </div>
           <div className="input-elem-group elem-col-2">
             <div className="input-elem">
@@ -150,18 +141,6 @@ const Billing = () => {
               </label>
               <Input type="text" placeholder="House number and street name" />
             </div>
-            <div className="input-elem">
-              <label
-                htmlFor=""
-                className="text-base text-outerspace font-semibold"
-              >
-                Apt, suite, unit
-              </label>
-              <Input
-                type="text"
-                placeholder="apartment, suite, unit, etc. (optional)"
-              />
-            </div>
           </div>
           <div className="input-elem-group elem-col-3">
             <div className="input-elem">
@@ -172,21 +151,6 @@ const Billing = () => {
                 City*
               </label>
               <Input type="text" placeholder="Town / City" />
-            </div>
-            <div className="input-elem">
-              <label
-                htmlFor=""
-                className="text-base text-outerspace font-semibold"
-              >
-                State*
-              </label>
-              <select name="">
-                <option value="" disabled>
-                  State
-                </option>
-                <option value="">State 1</option>
-                <option value="">State 1</option>
-              </select>
             </div>
             <div className="input-elem">
               <label
@@ -212,12 +176,6 @@ const Billing = () => {
           <BaseButtonGreen type="submit" className="contd-delivery-btn">
             Continue to delivery
           </BaseButtonGreen>
-          <div className="input-check-group flex items-center flex-wrap">
-            <Input type="checkbox" />
-            <p className="text-base">
-              Save my information for a faster checkout
-            </p>
-          </div>
         </form>
       </BillingDetailsWrapper>
       <CheckoutSummary />
