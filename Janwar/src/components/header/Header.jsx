@@ -160,8 +160,8 @@ const Header = () => {
                 })}
               </ul>
             </NavigationMenuWrapper>
-            <form className="search-form">
-              <InputGroupWrapper className="input-group">
+            {/* <form className="search-form">
+            <div className="flex items-center justify-center">
                 <span className="input-icon flex items-center justify-center text-xl text-gray">
                   <i className="bi bi-search"></i>
                 </span>
@@ -170,19 +170,19 @@ const Header = () => {
                   className="input-control w-full"
                   placeholder="Search"
                 />
-              </InputGroupWrapper>
-            </form>
+              </div>
+            </form> */}
           </NavigationAndSearchWrapper>
 
           <IconLinksWrapper className="flex items-center">
-            <Link
+            {/* <Link
               to="/wishlist"
               className={`icon-link ${
                 location.pathname === "/wishlist" ? "active" : ""
               } inline-flex items-center justify-center`}
             >
               <img src={staticImages.heart} alt="" />
-            </Link>
+            </Link> */}
             <Link
               to="/account"
               className={`icon-link ${
