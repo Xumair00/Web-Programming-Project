@@ -3,6 +3,10 @@ import { Input } from "../../styles/form";
 import { cardsData } from "../../data/data";
 import { BaseButtonGreen } from "../../styles/button";
 import { breakpoints, defaultTheme } from "../../styles/themes/default";
+import React, { useState, useEffect } from "react"; // Add this line to import useState
+import { Link } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
+import axios from "axios";
 
 const ShippingPaymentWrapper = styled.div`
   .shipping-addr,
@@ -148,53 +152,105 @@ const ShippingPaymentWrapper = styled.div`
 `;
 
 const ShippingPayment = () => {
+
+  
+
+  const [name, setName] = useState('');
+  const [phone, setPhone] = useState('');
+  const [address, setAddress] = useState('');
+  const [deliveryDate, setDeliveryDate] = useState('');
+  const [cart, setCart] = useState('');
+
+  useEffect(() => {
+    const cartItems = JSON.parse(localStorage.getItem("cartItems"));
+    setCart(cartItems);
+    //delete cartItems from localStorage
+    localStorage.removeItem("cartItems");
+    
+   
+    // Retrieve user data from localStorage
+    const userData = localStorage.getItem('user_data');
+    const { name, phone, address } = JSON.parse(userData);
+    setName(name);
+    setPhone(phone);
+    setAddress(address);
+
+    // Set delivery date to 4 days from now
+    const today = new Date();
+    const delivery = new Date(today);
+    delivery.setDate(today.getDate() + 4); // Adding 4 days
+    setDeliveryDate(delivery.toLocaleDateString('en-US', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' }));
+  }, []);
+
+  const [paymentMethod, setPaymentMethod] = useState('');
+  const [showPaymentDetails, setShowPaymentDetails] = useState(false);
+
+  const handlePaymentMethodChange = (event) => {
+    setPaymentMethod(event.target.value);
+    const selectedMethod = event.target.value;
+    setShowPaymentDetails(selectedMethod === 'credit card');
+  };
+ 
+  
+
+  const navigate = useNavigate();
+  const location = useLocation();
+
+  const addorder = async () => {
+    try {
+      console.log('Proceed to the checkout clicked');
+      const timestamp = new Date();
+      console.log("Cart (Shipping):", cart);
+      for (const item of cart) {
+        item.timestamp = timestamp;
+        item.paymentMethod = paymentMethod;
+        console.log("Adding item to order:", item);
+        const response = await axios.post("http://localhost:5050/user/addtoorder", item);
+        console.log("Response:", response.data);
+      }
+      alert("Order placed successfully!");
+      for (const item of cart) {
+        console.log("Removing item:", item.productID);
+        console.log("Removing item:", item.postCategory);
+        const response = await axios.post("http://localhost:5050/user/removeCart", { ItemId: item.productID, type: item.postCategory });
+
+      }
+      alert("Deleted successfully!");
+      navigate("/confirmScreen");
+    } catch (error) {
+      // Handle error
+      console.error("Error:", error);
+      alert("Failed. Please try again later.");
+    }
+  };
+  
+
+
+
+
+
   return (
     <ShippingPaymentWrapper>
       <div className="shipping-addr">
         <h3 className="text-xxl shipping-addr-title">Shipping Address</h3>
-        <p className="text-base text-outerspace">
-          Select the address that matches your card or payment method.
-        </p>
+        <p className="text-base text-outerspace">Your shipping address:</p>
         <div className="list-group">
-          <div className="list-group-item flex items-center">
-            <Input type="radio" name="shipping_addr" />
-            <span className="font-semibold text-lg">
-              Same as Billing address
-            </span>
-          </div>
-          <div className="horiz-line-separator"></div>
-          <div className="list-group-item flex items-center">
-            <Input type="radio" name="shipping_addr" />
-            <span className="font-semibold text-lg">
-              Use a different shipping address
-            </span>
+          <div className="list-group-item">
+            <p className="font-semibold text-lg">{name}</p>
+            <p className="text-base">{address}</p>
+            <p className="text-base">{phone}</p>
           </div>
         </div>
       </div>
       <div className="shipping-method">
-        <h3 className="text-xxl shipping-method-title">Shipping Address</h3>
-        <p className="text-base text-outerspace">
-          Select the address that matches your card or payment method.
-        </p>
+        <h3 className="text-xxl shipping-method-title">Delivery Date</h3>
+        <p className="text-base text-outerspace">Your order will arrive on:</p>
         <div className="list-group">
-          <div className="list-group-item flex items-center">
-            <span className="font-semibold text-lg">
-              Arrives by Monday, June 7
-            </span>
-          </div>
-          <div className="horiz-line-separator"></div>
-          <div className="list-group-item flex items-start justify-between">
-            <p className="font-semibold text-lg">
-              Delivery Charges &nbsp;
-              <span className="flex text-base font-medium text-gray">
-                Additional fees may apply
-              </span>
-            </p>
-            <span className="font-semibold text-lg">$5.00</span>
+          <div className="list-group-item">
+            <p className="font-semibold text-lg">{deliveryDate}</p>
           </div>
         </div>
       </div>
-
       <div className="payment-method">
         <h3 className="text-xxl payment-method-title">Payment Method</h3>
         <p className="text-base text-outerspace">
@@ -203,11 +259,13 @@ const ShippingPayment = () => {
         <div className="list-group">
           <div className="list-group-item">
             <div className="flex items-center list-group-item-head">
-              <Input
-                type="radio"
-                className="list-group-item-check"
-                name="payment_method"
-              />
+            <Input
+            type="radio"
+            className="list-group-item-check"
+            name="payment_method"
+            value="credit card"
+            onChange={handlePaymentMethodChange}
+          />
               <p className="font-semibold text-lg">
                 Credit Card
                 <span className="flex text-base font-medium text-gray">
@@ -233,41 +291,53 @@ const ShippingPayment = () => {
                 );
               })}
             </div>
-            <div className="payment-details">
-              <div className="form-elem-group">
-                <Input
-                  type="text"
-                  className="form-elem"
-                  placeholder="Card number"
-                />
-                <Input
-                  type="text"
-                  className="form-elem"
-                  placeholder="Name of card"
-                />
-              </div>
-              <div className="form-elem-group">
-                <Input
-                  type="text"
-                  className="form-elem"
-                  placeholder="Expiration date (MM/YY)"
-                />
-                <Input
-                  type="text"
-                  className="form-elem"
-                  placeholder="Security Code"
-                />
-              </div>
+            <div className="payment-details" style={{ display: showPaymentDetails ? 'block' : 'none' }}>
+            <div className="form-elem-group">
+              <Input
+                type="text"
+                className="form-elem"
+                placeholder="Card number"
+                required
+                pattern="[0-9]{16}"
+                title="Please enter a 16-digit card number"
+              />
+              <Input
+                type="text"
+                className="form-elem"
+                placeholder="Name of card"
+                required
+              />
             </div>
+            <div className="form-elem-group">
+                <Input
+                type="text"
+                className="form-elem"
+                placeholder="Expiration date (MM/YY)"
+                required
+                pattern="(0[1-9]|1[0-2])\/[0-9]{2}"
+                title="Please enter a valid expiration date in MM/YY format"
+              />
+              <Input
+                type="text"
+                className="form-elem"
+                placeholder="Security Code"
+                required
+                pattern="[0-9]{3}"
+                title="Please enter a 3-digit security code"
+          />
+        </div>
+        </div>
           </div>
 
           <div className="horiz-line-separator"></div>
           <div className="list-group-item flex items-center">
-            <Input
-              type="radio"
-              className="list-group-item-check"
-              name="payment_method"
-            />
+          <Input
+            type="radio"
+            className="list-group-item-check"
+            name="payment_method"
+            value="Cash on delivery"
+            onChange={handlePaymentMethodChange}
+          />
             <p className="font-semibod text-lg">
               Cash on delivery
               <span className="flex text-base font-medium text-gray">
@@ -276,19 +346,17 @@ const ShippingPayment = () => {
             </p>
           </div>
           <div className="horiz-line-separator"></div>
-          <div className="list-group-item flex items-center">
-            <Input
-              type="radio"
-              className="list-group-item-check"
-              name="payment_method"
-            />
-            <p className="font-semibod text-lg">PayPal</p>
-          </div>
         </div>
       </div>
-      <BaseButtonGreen type="submit" className="pay-now-btn">
-        Pay Now
-      </BaseButtonGreen>
+      <Link>
+      <BaseButtonGreen
+          type="button"
+          className="pay-now-btn"
+          onClick={addorder}
+        >
+    Confirm Order
+  </BaseButtonGreen>
+</Link>
     </ShippingPaymentWrapper>
   );
 };
