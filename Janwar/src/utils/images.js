@@ -126,6 +126,19 @@ import paypal from "../assets/images/paypal.png";
 import paypass from "../assets/images/paypass.png";
 import confirmed_img from "../assets/images/confirmed_img.svg";
 
+import mission from "../assets/images/mission.jpg";
+import buypet from "../assets/images/buypet.jpg";
+import pet from "../assets/images/pet.png";
+import adopt from "../assets/images/adopt.png";
+import Accessories_Admin from "../assets/images/Accessories_Admin.png";
+import Accessories from "../assets/images/Accessories.png";
+
+
+
+
+
+
+
 export const staticImages = {
   logo,
   form_img1,
@@ -223,4 +236,10 @@ export const staticImages = {
   paypal,
   paypass,
   confirmed_img,
+  mission,
+  buypet,
+  pet,
+  Accessories_Admin,
+  Accessories,
+  adopt,
 };
