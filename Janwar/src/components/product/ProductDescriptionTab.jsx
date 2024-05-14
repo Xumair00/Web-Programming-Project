@@ -116,91 +116,31 @@ const DescriptionTabsWrapper = styled.div`
   }
 `;
 
-const ProductDescriptionTab = () => {
-  const [activeDesTab, setActiveDesTab] = useState(
-    productDescriptionTabHeads[0].tabHead
-  );
+const ProductDescriptionTab = ({description}) => {
+  
+  
 
-  const handleTabChange = (tabHead) => {
-    setActiveDesTab(tabHead);
-  };
+
   return (
     <DetailsContent>
 
-      <Title titleText={"German Shepherd Description"} />
+      <Title titleText={"Description"} />
 
       <div className="details-content-wrapper grid">
         <DescriptionTabsWrapper>
-          <div className="tabs-heads flex items-center flex-wrap">
-            {productDescriptionTabHeads.map((tab) => {
-              return (
-                <button
-                  key={tab.id}
-                  type="button"
-                  className="tabs-head text-gray font-medium text-lg flex items-center"
-                  onClick={() => handleTabChange(tab.tabHead)}
-                >
-                  <span
-                    className={`${
-                      tab.tabHead === activeDesTab ? "text-sea-green" : ""
-                    }`}
-                  >
-                    {tab.tabText}
-                  </span>
-                  {tab.badgeValue && (
-                    <span
-                      className={`tabs-badge inline-flex items-center justify-center text-white tabs-badge-${tab.badgeColor}`}
-                    >
-                      {tab.badgeValue}
-                    </span>
-                  )}
-                </button>
-              );
-            })}
-          </div>
-          <div className="tabs-contents">
-            <div
-              className={`tabs-content ${
-                activeDesTab === "tabDescription" ? "show" : ""
-              }`}
-            >
+          
+              
+                
               <ContentStylings>
                 <p>
 
-                  The German Shepherd is a loyal, intelligent, and courageous breed known for its versatility. These dogs are highly trainable and excel in various tasks such as search and rescue, police work, and herding.
-                </p>
-                <h4>Specifications:</h4>
-                <ul>
-                  <li>Breed: German Shepherd</li>
-                  <li>Origin: Germany</li>
-                  <li>Temperament: Confident, Intelligent, Loyal</li>
-                  <li>Size: Large</li>
-                  <li>Life Expectancy: 10-12 years</li>
-                  <li>Coat: Double coat</li>
-                </ul>
-                <p>
-                  *Important: Please make sure that the mobile number is filled
+                  {description}
 
                 </p>
               </ContentStylings>
-            </div>
-            <div
-              className={`tabs-content content-stylings ${
-                activeDesTab === "tabComments" ? "show" : ""
-              }`}
-            >
-              User comments here.
-            </div>
-            <div
-              className={`tabs-content content-stylings ${
-                activeDesTab === "tabQNA" ? "show" : ""
-              }`}
-            >
-              Question & Answers
-            </div>
-          </div>
+              
+            
         </DescriptionTabsWrapper>
-        <ProductDescriptionMedia />
       </div>
     </DetailsContent>
   );
