@@ -1,10 +1,9 @@
 import { staticImages } from "../utils/images";
-import BuyPet from "../screens/product/BuyPet.jsx";
-import AdoptPet from "../screens/product/AdoptPet.jsx";
+
 const navMenuData = [
   {
     id: "nav-menu-1",
-    menuLink: "/",
+    menuLink: "/postad",
     menuText: "Post Add",
   },
   {
@@ -24,9 +23,19 @@ const navMenuData = [
   },
   {
     id: "nav-menu-5",
-    menuLink: "/",
+    menuLink: "/Intro",
     menuText: "About Us",
   },
+  {
+    id: "nav-menu-6",
+    menuLink: "/contact",
+    menuText: "Contact Us",
+  },
+  // {
+  //   id: "nav-menu-7",
+  //   menuLink: "/feedback",
+  //   menuText: "Feedback",
+  // },
 ];
 
 const sideMenuData = [
@@ -38,15 +47,9 @@ const sideMenuData = [
   },
   {
     id: "side-menu-2",
-    menuLink: "/product",
+    menuLink: "/accessories",
     menuText: "Products",
     iconName: "grid-fill",
-  },
-  {
-    id: "side-menu-3",
-    menuLink: "/wishlist",
-    menuText: "Wishlist",
-    iconName: "heart",
   },
   {
     id: "side-menu-4",
@@ -68,7 +71,7 @@ const bannerData = [
     topText: "Welcome to Janwar!",
     titleText: "Where Tails Wag and Hearts Purr",
     bottomText: "Discover Your Perfect Companion Today!",
-    buttonLink: "/",
+    buttonLink: "/buy",
     buttonText: "Shop Now",
     imgSource: staticImages.hero_img1,
   },
@@ -77,7 +80,7 @@ const bannerData = [
     topText: "From Paws to Claws, We've Got it All",
     titleText: "Explore Now!",
     bottomText: "Fur-ever Love Awaits",
-    buttonLink: "/",
+    buttonLink: "/buy",
     buttonText: "Shop Now",
     imgSource: staticImages.hero_img2,
   },
@@ -86,7 +89,7 @@ const bannerData = [
     topText: "Your One-Stop Shop for Everything Pet-Related!",
     titleText: "Adopt, Shop Accessories, or Buy Adorable Pet!",
     bottomText: "Where Every Pet is Family",
-    buttonLink: "/",
+    buttonLink: "/accessories",
     buttonText: "Shop Now",
     imgSource: staticImages.hero_img3,
   },
@@ -95,7 +98,7 @@ const bannerData = [
     topText: "Tail-Wagging Deals Await",
     titleText: "Shop Now for Your Furry Friend!",
     bottomText: "Explore Our Wide Selection Today!",
-    buttonLink: "/",
+    buttonLink: "/adopt",
     buttonText: "Shop Now",
     imgSource: staticImages.hero_img4,
   },
@@ -108,7 +111,7 @@ const featuredData = [
     topText: "Upgrade Your Pet's Style",
     largeText: "Shop Now for Trendy Accessories!",
     bottomText: "Explore Our Accessories Collection Now!",
-    buttonLink: "/",
+    buttonLink: "/accessories",
     buttonText: "Explore Items",
   },
   {
@@ -117,7 +120,7 @@ const featuredData = [
     topText: "Unconditional Love Comes in All Shapes and Sizes",
     largeText: "Find Your Furry Soulmate",
     bottomText: "Adopt a Pet and Discover a Lifetime of Happiness!",
-    buttonLink: "/",
+    buttonLink: "/buy",
     buttonText: "Explore Items",
   },
 ];
@@ -200,6 +203,70 @@ const savingZoneData = [
     description: "Best Choice for your Cat",
     discount: 60,
     isLimited: false,
+  },
+];
+const PetsForSale = [
+  {
+    id: "PetSell-1",
+    imgSource: staticImages.product7,
+    title: "Rottwiler",
+    description: "Dogs Of All Breeds can be Found Here",
+  },
+  {
+    id: "PetSell-2",
+    imgSource: staticImages.product6,
+    title: "Lorry",
+    description: "The Most Colourful of Birds",
+  },
+  {
+    id: "PetSell-3",
+    imgSource: staticImages.product5,
+    title: "Grey Parrot",
+    description: "All Types of Parrots from the African Grey to Macaw",
+  },
+  {
+    id: "PetSell-4",
+    imgSource: staticImages.product2,
+    title: "Persian Cat",
+    description: "If Your Not a Dog Person, We Definitly Got Cats!!",
+  },
+  {
+    id: "PetSell-5",
+    imgSource: staticImages.product3,
+    title: "Sun Conure",
+    description: "Your Tiny Best Friend is Right Here!",
+  },
+];
+const PetsForSale2 = [
+  {
+    id: "PetSell-1",
+    imgSource: staticImages.product1,
+    title: "German Shepherd",
+    description: "Dog Lovers Will Love it Here",
+  },
+  {
+    id: "PetSell-2",
+    imgSource: staticImages.hero_img1,
+    title: "Scarlet Macaw",
+    description: "Unlock a world of vibrant colors and endless chatter",
+  },
+  {
+    id: "PetSell-3",
+    imgSource: staticImages.hero_img2,
+    title: "Amazon Parrot",
+    description: "Embrace the charm and intelligence of the Amazon Parrot",
+  },
+  {
+    id: "PetSell-4",
+    imgSource: staticImages.hero_img3,
+    title: "Persian Cat",
+    description: "Meow Meow The Loneliness Away With a Lovely Cat",
+  },
+  {
+    id: "PetSell-5",
+    imgSource: staticImages.hero_img4,
+    title: "Macaw",
+    description: " Bringing Lively Conversations and Colorful Companionship to your Home",
   },
 ];
 
@@ -831,4 +898,6 @@ export {
   recentViewedData,
   cardsData,
   socialLinksData,
+  PetsForSale,
+  PetsForSale2,
 };
