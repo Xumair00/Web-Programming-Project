@@ -30,11 +30,9 @@ const CartTableWrapper = styled.table`
       padding-left: 16px;
       padding-right: 16px;
       letter-spacing: 0.03em;
-
       @media (max-width: ${breakpoints.lg}) {
         padding: 16px 12px;
       }
-
       @media (max-width: ${breakpoints.xs}) {
         padding: 10px;
       }
@@ -57,11 +55,10 @@ const CartTableWrapper = styled.table`
   }
 `;
 
-const CartTable = ({ cartItems }) => {
+const CartTable = ({ cartItems, onRemoveItem }) => {
   const CART_TABLE_HEADS = [
     "Product details",
     "Price",
-    "Quantity",
     "Shipping",
     "Subtotal",
     "Action",
@@ -72,7 +69,7 @@ const CartTable = ({ cartItems }) => {
       <CartTableWrapper className="w-full">
         <thead>
           <tr className="text-start">
-            {CART_TABLE_HEADS?.map((column, index) => (
+            {CART_TABLE_HEADS.map((column, index) => (
               <th
                 key={index}
                 className={`bg-outerspace text-white font-semibold capitalize text-base ${
@@ -85,17 +82,18 @@ const CartTable = ({ cartItems }) => {
           </tr>
         </thead>
         <tbody>
-          {cartItems.map((cartItem) => {
-            return <CartItem key={cartItem.id} cartItem={cartItem} />;
-          })}
+          {cartItems.map((cartItem) => (
+            <CartItem key={cartItem.id} cartItem={cartItem} onRemoveItem={onRemoveItem} />
+          ))}
         </tbody>
       </CartTableWrapper>
     </ScrollbarXWrapper>
   );
 };
 
-export default CartTable;
-
 CartTable.propTypes = {
-  cartItems: PropTypes.array,
+  cartItems: PropTypes.array.isRequired,
+  onRemoveItem: PropTypes.func.isRequired,
 };
+
+export default CartTable;

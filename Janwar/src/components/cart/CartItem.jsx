@@ -2,13 +2,17 @@ import styled from "styled-components";
 import { PropTypes } from "prop-types";
 import { Link } from "react-router-dom";
 import { breakpoints, defaultTheme } from "../../styles/themes/default";
+import axios from "axios";
+import { useNavigate, useLocation } from "react-router-dom";
+
+const quantity = 1;
+const ShippingCost = 0;
 
 const CartTableRowWrapper = styled.tr`
   .cart-tbl {
     &-prod {
       grid-template-columns: 80px auto;
       column-gap: 12px;
-
       @media (max-width: ${breakpoints.xl}) {
         grid-template-columns: 60px auto;
       }
@@ -57,24 +61,42 @@ const CartTableRowWrapper = styled.tr`
     }
   }
 `;
+const CartItem = ({ cartItem, onDelete }) => {
 
-const CartItem = ({ cartItem }) => {
+  const navigate = useNavigate();
+  const location = useLocation();
+  
+  const handleRemove = async () => {
+    try {
+      const itemId = cartItem._id
+      console.log("Item ID:", itemId);
+      const response = await axios.post("http://localhost:5050/user/removeFromCart", { itemId });
+      console.log("API response:", response);
+      if (response.status === 200) {
+        onDelete(cartItem._id); // Update local state after successful deletion
+        console.log("Item removed from cart successfully");
+      }
+      navigate("/cart");
+    } catch (error) {
+      console.error("Failed to remove item from cart:", error.response.data);
+    }
+  };
+  
+    
   return (
     <CartTableRowWrapper key={cartItem.id}>
       <td>
         <div className="cart-tbl-prod grid">
           <div className="cart-prod-img">
-            <img src={cartItem.imgSource} className="object-fit-cover" alt="" />
+            <img src={cartItem.images} className="object-fit-cover" alt="" />
           </div>
           <div className="cart-prod-info">
             <h4 className="text-base">{cartItem.title}</h4>
-            <p className="text-sm text-gray inline-flex">
-              <span className="font-semibold">Color: </span> {cartItem.color}
-            </p>
-            <p className="text-sm text-gray inline-flex">
-              <span className="font-semibold">Size:</span>
-              {cartItem.size}
-            </p>
+            {['Male', 'Female', 'Not specified'].includes(cartItem.gender) && (
+              <p className="text-sm text-gray inline-flex">
+                <span className="font-semibold">Gender: </span> {cartItem.gender}
+              </p>
+            )}
           </div>
         </div>
       </td>
@@ -84,41 +106,29 @@ const CartItem = ({ cartItem }) => {
         </span>
       </td>
       <td>
-        <div className="cart-tbl-qty flex items-center">
-          <button className="qty-dec-btn">
-            <i className="bi bi-dash-lg"></i>
-          </button>
-          <span className="qty-value inline-flex items-center justify-center font-medium text-outerspace">
-            2
-          </span>
-          <button className="qty-inc-btn">
-            <i className="bi bi-plus-lg"></i>
-          </button>
-        </div>
-      </td>
-      <td>
         <span className="cart-tbl-shipping uppercase text-silver font-bold">
-          {cartItem.shipping === 0 ? "Free" : cartItem.shipping}
+          {ShippingCost === 0 ? "Free" : `$${ShippingCost}`}
         </span>
       </td>
       <td>
         <span className="text-lg font-bold text-outerspace">
-          ${cartItem.price * cartItem.quantity}
+          ${Number(cartItem.price.replace(/,/g, '')) * quantity}
         </span>
       </td>
       <td>
         <div className="cart-tbl-actions flex justify-center">
-          <Link to="/" className="tbl-del-action text-red">
+          <button onClick={handleRemove} className="tbl-del-action text-red">
             <i className="bi bi-trash3"></i>
-          </Link>
+          </button>
         </div>
       </td>
     </CartTableRowWrapper>
   );
 };
 
-export default CartItem;
-
 CartItem.propTypes = {
-  cartItem: PropTypes.object,
+  cartItem: PropTypes.object.isRequired,
+  onDelete: PropTypes.func.isRequired,
 };
+
+export default CartItem;
