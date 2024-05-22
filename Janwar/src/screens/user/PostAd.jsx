@@ -29,8 +29,8 @@ const PostAdScreenWrapper = styled.main`
 `;
 
 const breadcrumbItems = [
-  { label: "Home", link: "/" },
-  { label: "Post Ad", link: "/post-ad" },
+  { label: "Home", link: "/home" },
+  { label: "Post Ad", link: "/postad" },
 ];
 
 const PostAdScreen = () => {
@@ -275,7 +275,7 @@ const PostAdScreen = () => {
                     htmlFor="imageUpload"
                     className="form-label font-semibold text-base"
                   >
-                    Upload Images (up to 10)*
+                    Upload Images
                   </label>
                   <Input
                     type="file"
