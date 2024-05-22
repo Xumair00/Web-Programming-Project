@@ -275,7 +275,7 @@ const PostAdScreen = () => {
                     htmlFor="imageUpload"
                     className="form-label font-semibold text-base"
                   >
-                    Upload Images (up to 10)*
+                    Upload Images
                   </label>
                   <Input
                     type="file"
