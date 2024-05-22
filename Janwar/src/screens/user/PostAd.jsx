@@ -29,8 +29,8 @@ const PostAdScreenWrapper = styled.main`
 `;
 
 const breadcrumbItems = [
-  { label: "Home", link: "/" },
-  { label: "Post Ad", link: "/post-ad" },
+  { label: "Home", link: "/home" },
+  { label: "Post Ad", link: "/postad" },
 ];
 
 const PostAdScreen = () => {
